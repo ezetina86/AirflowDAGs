@@ -13,9 +13,9 @@ def _test_variables(name):
     print(my_secret)
     multiple_variables = Variable.get("multiple_variables", deserialize_json=True)
     email = multiple_variables["email"]
+    print("Outputs")
     print(email)
     print(name)
-    return my_secret
 
 
 @dag(dag_id="my_dag",
@@ -41,11 +41,17 @@ def my_dag():
                        op_args=["{{ var.json.multiple_variables.name }}"])
 
     @task()
+    def test_variables_env():
+        PythonOperator(task_id="test_variables_env",
+                        python_callable=_test_variables,
+                        op_args=["{{ var.json.newvariable.value2 }}"])
+
+    @task()
     def bye():
         BashOperator(task_id="bye",
                      bash_command="echo DAG finished")
 
-    hello() >> test_variables() >> bye()
+    hello() >> test_variables() >> test_variables_env() >> bye()
 
 
 dag = my_dag()

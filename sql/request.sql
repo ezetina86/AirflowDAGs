@@ -1,0 +1,1 @@
+SELECT partner_name FROM partners WHERE var1 = {{ var.json.newvariable.value2 }} AND date = {{ ds }}
