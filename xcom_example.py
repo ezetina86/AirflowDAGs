@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 
 def _my_partner(ti):
     partner_name = "AutoZone"
-    partner_path = "/parteners/AutoZone"
-    return {"partner_name": partner_name, "partner_path":partner_path}
-    ##ti.xcom_push(key="partner_name", value=partner_name)
+    partner_path = "/partners/AutoZone"
+    return {"partner_name": partner_name, "partner_path": partner_path}
+    # ti.xcom_push(key="partner_name", value=partner_name)
 
 
 def _process(ti):
